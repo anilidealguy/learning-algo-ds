@@ -1,4 +1,4 @@
-package datastructures.graphs;
+package graphs;
 
 public class Edge {
     int val;
