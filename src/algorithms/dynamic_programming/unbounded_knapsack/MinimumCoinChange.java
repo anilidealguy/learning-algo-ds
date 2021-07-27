@@ -11,21 +11,18 @@ public class MinimumCoinChange {
             return Integer.MAX_VALUE;
 
         if (total == 0)
-            return 0;
+            return 1;
 
         if (memo[i][total] != null)
             return memo[i][total];
 
-        int pick = Integer.MAX_VALUE;
-        if (denominations[i] <= total) {
+        int pick = 0;
+        if (denominations[i] <= total)
             pick = countChangeMemoization(denominations, memo, total - denominations[i], i);
-            if (pick != Integer.MAX_VALUE)
-                pick++;
-        }
 
         int unPick = countChangeMemoization(denominations, memo, total, i-1);
 
-        int res = Math.min(pick, unPick);
+        int res = 1 + Math.min(pick, unPick);
         memo[i][total] = res;
         return res;
     }
@@ -41,18 +38,15 @@ public class MinimumCoinChange {
             return Integer.MAX_VALUE;
 
         if (total == 0)
-            return 0;
+            return 1;
 
-        int pick = Integer.MAX_VALUE;
-        if (denominations[i] <= total) {
+        int pick = 0;
+        if (denominations[i] <= total)
             pick = countChangeRecursive(denominations, total - denominations[i], i);
-            if (pick != Integer.MAX_VALUE)
-                pick++;
-        }
 
         int unPick = countChangeRecursive(denominations, total, i-1);
 
-        return Math.min(pick, unPick);
+        return 1 + Math.min(pick, unPick);
     }
 
     public static void main(String[] args) {
